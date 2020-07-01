@@ -4,3 +4,5 @@ include
 pyvenv.cfg
 .env
 .vscode/settings.json
+*.session
+conf.yml

@@ -1,8 +1,8 @@
 tgresender:
-    api_id: you api_id
-    api_hash: you api_hash
-    resend:
-        from: # From username or chat id(check chat id with --verbose flag)
-            to: <%username%> # To username or chat id(check chat id with --verbose flag)
-            copy: true|false # false If message should be forwarded, true if copied and sent 
-        # Note, that chat_id in "from" should be in parenthesis, like "-bignumber"
+  api_id: your api_id
+  api_hash: your api_hash
+  resend:
+    from: # From username or chat id(check chat id with --verbose flag)
+      to: <%username%> # To username or chat id(check chat id with --verbose flag)
+      copy: true|false # false If message should be forwarded, true if copied and sent
+    # Note, that chat_id in "from" should be in parenthesis, like "-bignumber"

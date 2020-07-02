@@ -15,19 +15,17 @@ if not conf.get('api_id', False) or not conf.get('api_hash', False):
     print('No API_ID or API_HASH provided')
 
 api_id, api_hash = conf['api_id'], conf['api_hash']
-print(environ.get('WORKDIR', '/shared'),
-      listdir(environ.get('WORKDIR', '/shared')))
 app = Client(
     "tgresender",
     api_id=api_id,
     api_hash=api_hash,
-    workdir=environ.get('WORKDIR', '/shared')
+    workdir='shared'
 )
 
 resend_from = conf['resend'].keys()
 
 
-@app.on_message()
+@ app.on_message()
 def resend(client, message):
     global argv
     if "--verbose" in argv:

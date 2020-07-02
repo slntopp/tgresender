@@ -11,8 +11,8 @@ Made with [pyrogram](https://github.com/pyrogram/pyrogram).
 
 ### Running in docker
 
-4. Build Docker image by running `docker build . -t tgresender:latest`
-5. Run `docker run --rm -it tgresender:latest` to start container
+4. Build Docker image by running `docker build bot -t tgresender_bot:latest`
+5. Run `docker run --rm -it tgresender_bot:latest` to start container
 
 ### Running on host
 
@@ -29,9 +29,17 @@ Made with [pyrogram](https://github.com/pyrogram/pyrogram).
 > you can first run all this with --verbose and wait for the message from the group you need.
 > (Yes, i'm working on just listing all chats)
 
-> After you ran it once on f.e. your local machine,
+**deprecated! see below**
+
+> ~~After you ran it once on f.e. your local machine,
 > you can add `COPY tgresender.session` to Dockerfile and then
 > setup by running 4. and `docker run -d tgresender:latest` after.
+> Your session data will be stored in Container, so you wan't need
+> to login interactively again.~~
+
+> After you ran it once on f.e. your local machine. you can use directory where
+> `tgresender.session` was stored as shared volume, by using
+> `docker run -dv absolute/path/to/the/dir:/app/shared`.
 > Your session data will be stored in Container, so you wan't need
 > to login interactively again.
 

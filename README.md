@@ -20,6 +20,7 @@ Made with [pyrogram](https://github.com/pyrogram/pyrogram).
 5. Create python env `python3 -m venv .` and enter it `source bin/activate`
 6. Run `pip install git+https://github.com/slntopp/simple-rri.git`
 7. Install dependencies by running: `python install_requirements.py`
+   7.1 If nothing happens(pip doesn't start) copy command from last line and run it yourself
 8. Run `python bot/main.py`
 
 ## Notes

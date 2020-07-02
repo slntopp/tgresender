@@ -6,3 +6,4 @@ pyvenv.cfg
 .vscode/settings.json
 *.session
 conf.yml
+.vscode/launch.json

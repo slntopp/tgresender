@@ -1,10 +1,11 @@
 #!./bin/python
-from os import environ
+from os import environ, path
 from sys import argv
 from pyrogram import Client, MessageHandler
 import yaml
 
-conf = yaml.load(open('conf.yml', 'r'), Loader=yaml.SafeLoader)
+conf = yaml.load(open('%s/conf.yml' %
+                      path.dirname(path.abspath(__file__)), 'r'), Loader=yaml.SafeLoader)
 if not conf.get('tgresender', False):
     print('No Valid Config Provided')
 
@@ -18,7 +19,9 @@ api_id, api_hash = conf['api_id'], conf['api_hash']
 app = Client(
     "tgresender",
     api_id=api_id,
-    api_hash=api_hash
+    api_hash=api_hash,
+    workdir=environ.get('WORKDIR', '%s/../shared/' %
+                        path.dirname(path.abspath(__file__)))
 )
 
 resend_from = conf['resend'].keys()

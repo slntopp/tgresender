@@ -8,8 +8,19 @@ Made with [pyrogram](https://github.com/pyrogram/pyrogram).
 1. `git clone` this repo
 2. [Go get Telegram API keys](https://docs.pyrogram.org/intro/setup#api-keys)
 3. Fill app_id and api_hash in `conf.yml`
+
+### Running in docker
+
 4. Build Docker image by running `docker build . -t tgresender:latest`
 5. Run `docker run --rm -it tgresender:latest` to start container
+
+### Running on host
+
+4. Check that you have python3.5+ and virtualenv installed
+5. Create python env `python3 -m venv .` and enter it `source bin/activate`
+6. Run `pip install git+https://github.com/slntopp/simple-rri.git`
+7. Install dependencies by running: `python install_requirements.py`
+8. Run `python bot/main.py`
 
 ## Notes
 

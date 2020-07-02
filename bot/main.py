@@ -1,5 +1,5 @@
 #!./bin/python
-from os import environ, path
+from os import environ, path, listdir
 from sys import argv
 from pyrogram import Client, MessageHandler
 import yaml
@@ -15,13 +15,13 @@ if not conf.get('api_id', False) or not conf.get('api_hash', False):
     print('No API_ID or API_HASH provided')
 
 api_id, api_hash = conf['api_id'], conf['api_hash']
-
+print(environ.get('WORKDIR', '/shared'),
+      listdir(environ.get('WORKDIR', '/shared')))
 app = Client(
     "tgresender",
     api_id=api_id,
     api_hash=api_hash,
-    workdir=environ.get('WORKDIR', '%s/../shared/' %
-                        path.dirname(path.abspath(__file__)))
+    workdir=environ.get('WORKDIR', '/shared')
 )
 
 resend_from = conf['resend'].keys()

@@ -1,5 +1,6 @@
-FROM python:3.8
+FROM python:3.7.3
 
+VOLUME [ "/shared" ]
 WORKDIR /app
 COPY requirements.txt .
 

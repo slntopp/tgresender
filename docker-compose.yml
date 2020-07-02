@@ -1,0 +1,10 @@
+version: "3.5"
+services:
+  bot:
+    build: bot
+    volumes:
+      - type: volume
+        source: ./shared
+        target: /shared
+volumes:
+  shared:

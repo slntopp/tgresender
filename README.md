@@ -30,9 +30,13 @@ You should move it to `bot/` directory before running **tgresender**
 
 ## Notes
 
-> If you need to know chat_id(if chat has no username, for example group chat),
+> ~~If you need to know chat_id(if chat has no username, for example group chat),
 > you can first run all this with --verbose and wait for the message from the group you need.
-> (Yes, i'm working on just listing all chats)
+> (Yes, i'm working on just listing all chats)~~ **deprecated|may be removed**
+
+> Use `generate_session.py` script ot generate session
+> and then run `list_dialogs.py` to list all dialogs
+> sorted with titles, usernames and chat_id's
 
 **deprecated! see below**
 

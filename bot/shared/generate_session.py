@@ -25,6 +25,25 @@ def gen_client(api_id: str, api_hash: str) -> Client:
     )
 
 
+def send_code(phone):
+    print("Sending code...")
+    try:
+        r = app.send_code(phone)
+    except errors.BadRequest:
+        print("Send code failed")
+    print("Code sent...")
+    phone_code_hash = r.phone_code_hash
+    return phone_code_hash
+
+
+def enter_code(phone, phone_code_hash, code):
+    try:
+        user = app.sign_in(phone, phone_code_hash, code)
+        return user
+    except errors.SessionPasswordNeeded:
+        return False
+
+
 if __name__ == '__main__':
     conf = conf.load()
     api_id, api_hash = conf['api_id'], conf['api_hash']
@@ -40,18 +59,13 @@ if __name__ == '__main__':
         exit(1)
 
     phone = input("Enter your phone number with country code: ")
-    print(phone)
-    print("Sending code...")
-    try:
-        r = app.send_code(phone)
-    except errors.BadRequest:
-        print("Send code failed")
-    print("Code sent...")
-    phone_code_hash = r.phone_code_hash
+    phone_code_hash = send_code(phone)
+
     code = input("Enter the confirmation code: ")
-    try:
-        user = app.sign_in(phone, phone_code_hash, code)
-    except errors.SessionPasswordNeeded:
+    r = enter_code(phone, phone_code_hash, code)
+    if r:
+        user = r
+    else:
         print("Password is required")
         print("Your hint: %s" % app.get_password_hint())
         passwd = getpass("Enter your password: ")
@@ -59,6 +73,9 @@ if __name__ == '__main__':
 
     if not user.is_bot:
         print('Welcome, {}'.format(user.first_name))
+
+    for i in range(5):
+        print()
+
     print('Your session file stored at %s' %
           '/'.join(path.dirname(path.abspath(__file__)).split('/')[:-1] + ['tgresender.session']))
-    app.stop()

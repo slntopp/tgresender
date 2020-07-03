@@ -5,6 +5,11 @@ Made with [pyrogram](https://github.com/pyrogram/pyrogram).
 
 ## Setup
 
+### Warning
+
+Due to the problems with moving this repo, default `conf.yml` can be not included at all or be in the project root directory
+You should move it to `bot/` directory before running **tgresender**
+
 1. `git clone` this repo
 2. [Go get Telegram API keys](https://docs.pyrogram.org/intro/setup#api-keys)
 3. Fill app_id and api_hash in `conf.yml`

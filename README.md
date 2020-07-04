@@ -34,7 +34,7 @@ You should move it to `bot/` directory before running **tgresender**
 > you can first run all this with --verbose and wait for the message from the group you need.
 > (Yes, i'm working on just listing all chats)~~ **deprecated|may be removed**
 
-> Use `generate_session.py` script ot generate session
+> Use `generate_session.py` script to generate session
 > and then run `list_dialogs.py` to list all dialogs
 > sorted with titles, usernames and chat_id's
 

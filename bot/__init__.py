@@ -1,28 +1,9 @@
-#!./bin/python
-from os import environ, path, listdir
-from sys import argv
-from pyrogram import Client, MessageHandler
-import yaml
+import conf
+from server import tg_app
+from pyrogram import MessageHandler
 
-conf = yaml.load(open('%s/conf.yml' %
-                      path.dirname(path.abspath(__file__)), 'r'), Loader=yaml.SafeLoader)
-if not conf.get('tgresender', False):
-    print('No Valid Config Provided')
-
-conf = conf['tgresender']
-
-if not conf.get('api_id', False) or not conf.get('api_hash', False):
-    print('No API_ID or API_HASH provided')
-
-api_id, api_hash = conf['api_id'], conf['api_hash']
-app = Client(
-    "tgresender",
-    api_id=api_id,
-    api_hash=api_hash,
-    workdir='shared'
-)
-
-resend_from = conf['resend'].keys()
+conf = conf.load()
+app = tg_app["app"]
 
 
 @ app.on_message()

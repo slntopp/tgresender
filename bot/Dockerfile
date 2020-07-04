@@ -7,6 +7,6 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY conf.yml .
-COPY main.py .
+COPY server.py .
 
-ENTRYPOINT ["python", "main.py"]
+ENTRYPOINT ["python", "server.py"]

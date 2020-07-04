@@ -55,11 +55,4 @@ def handle_enter_pass():
     })
 
 
-@app.route('/terminate')
-def handle_terminate():
-    terminate = request.environ.get('werkzeug.server.shutdown')
-    terminate()
-    return 'Shutting down'
-
-
 app.run()

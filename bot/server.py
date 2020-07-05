@@ -3,7 +3,8 @@ from bot.scripts.generate_session import *
 import bot.conf as conf
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='public',
+            static_folder='public/static')
 
 conf = conf.load()
 api_id, api_hash = conf['api_id'], conf['api_hash']
@@ -57,3 +58,9 @@ def handle_enter_pass():
 @app.route('/state', methods=['GET'])
 def get_state():
     return 'Running...'
+
+# Dashboard section
+
+
+@app.route('/', methods=['GET'])
+return render_template('index.html')

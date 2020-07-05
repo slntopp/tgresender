@@ -15,6 +15,6 @@ ADD bot /app/bot
 
 RUN pip install -r bot/requirements.txt
 
-COPY --from=build-stage /ui public
+COPY --from=build-stage /ui/dist /app/public
 
 ENTRYPOINT [ "gunicorn", "-b", "0.0.0.0:8080", "wsgi:app" ]

@@ -2,7 +2,7 @@
 # You can ignore this script, it will be needed just to be able     #
 # to go through this process without CLI                            #
 #####################################################################
-import conf
+import bot.conf as conf
 from os import environ, listdir, path
 from getpass import getpass
 from pyrogram import Client, errors

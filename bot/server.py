@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, jsonify
-import conf
-from generate_session import *
+from bot.scripts.generate_session import *
+import bot.conf as conf
 import os
 
 app = Flask(__name__)
@@ -15,7 +15,6 @@ tg_app["app"].connect()
 
 @app.route('/send_code', methods=['POST'])
 def handle_send_code():
-    print(request.form)
     tg_app["phone_number"] = request.form.get('phone_number', False)
     if tg_app["phone_number"]:
         tg_app["phone_code_hash"] = send_code(
@@ -55,4 +54,6 @@ def handle_enter_pass():
     })
 
 
-app.run()
+@app.route('/state', methods=['GET'])
+def get_state():
+    return 'Running...'

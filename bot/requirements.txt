@@ -2,3 +2,4 @@ tgcrypto
 pyrogram
 pyyml
 flask
+gunicorn

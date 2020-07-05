@@ -1,39 +1,64 @@
 from flask import Flask, request, render_template, jsonify
 from bot.scripts.generate_session import *
-import bot.conf as conf
+import bot.conf as conf_gateway
 import os
 
 app = Flask(__name__, template_folder='/app/public',
             static_folder='/app/public/static')
 
-conf = conf.load()
-api_id, api_hash = conf['api_id'], conf['api_hash']
-tg_app = {
-    "app": gen_client(api_id, api_hash)
-}
-tg_app["app"].connect()
+conf = {}
+tg_app = {}
 
 
 @app.route('/init_client', methods=['POST'])
 def handle_init_client():
+    global conf
+    global tg_app
+
     form = request.form
     api_id, api_hash = form.get(
         'api_id', ''), form.get('api_hash', '')
-    conf.set_api(api_id, api_hash)
-    return '', 200
+    conf_gateway.set_api(api_id, api_hash)
+
+    conf = conf_gateway.load()
+    tg_app["app"] = gen_client(api_id, api_hash)
+    tg_app["app"].connect()
+
+    return jsonify({
+        "result": "success"
+    }), 200
+
+
+@app.route('/get_conf', methods=['GET'])
+def get_conf():
+    try:
+        conf = conf_gateway.load()
+        api_id, api_hash = form.get(
+            'api_id', False), form.get('api_hash', False)
+        if api_id and api_hash:
+            tg_app["app"] = gen_client(api_id, api_hash)
+            tg_app["app"].connect()
+        return jsonify(conf)
+    except:
+        return jsonify({})
 
 
 @app.route('/send_code', methods=['POST'])
 def handle_send_code():
+    global tg_app
     tg_app["phone_number"] = request.form.get('phone_number', False)
     if tg_app["phone_number"]:
         tg_app["phone_code_hash"] = send_code(
             tg_app["app"], tg_app["phone_number"])
-    return '', 200
+    return jsonify({
+        "result": "success"
+    }), 200
 
 
 @app.route('/enter_code', methods=['POST'])
 def handle_enter_code():
+    global tg_app
+
     code = request.form.get('code', False)
     if not code:
         return '', 400
@@ -54,6 +79,8 @@ def handle_enter_code():
 
 @app.route('/enter_pass', methods=['POST'])
 def handle_enter_pass():
+    global tg_app
+
     passwd = request.form.get('passwd', False)
     if not passwd:
         return '', 400
@@ -74,3 +101,8 @@ def get_state():
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
+
+
+@app.route('/login/', methods=['POST'])
+def handle_login():
+    return jsonify({"result": request.args.get('passwd', '') == 'Jago322=='})

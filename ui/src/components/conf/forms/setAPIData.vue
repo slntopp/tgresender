@@ -31,8 +31,7 @@
           v-decorator="[
             'api_hash',
             {
-              required: true,
-              message: 'Please enter the API Hash'
+              rules: [{ required: true, message: 'Please enter the API Hash' }]
             }
           ]"
         />
@@ -45,13 +44,22 @@
 import axios from "axios";
 
 export default {
-  props: ["visible", "form_title"],
+  props: ["visible", "form_title", "conf"],
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: "configure_form" });
   },
+  watch: {
+    conf() {
+      this.form.setFieldsValue(this.conf);
+    }
+  },
+  mounted() {
+    this.form.setFieldsValue(this.conf);
+  },
   methods: {
     submit() {
-      this.form.validateFields((err, values) => {
+      let vm = this;
+      vm.form.validateFields((err, values) => {
         if (!err) {
           let apiClientData = new FormData();
           for (let [k, v] of Object.entries(values)) {
@@ -63,10 +71,11 @@ export default {
             method: "post",
             data: apiClientData,
             params: {
-              passwd: this.$store.state.password
+              passwd: vm.$store.state.password
             }
           }).then(res => {
-            this.$emit("done", values);
+            vm.$emit("done", values);
+            vm.$message.success("API conf is all set");
           });
         }
       });

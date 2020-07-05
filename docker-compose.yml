@@ -4,8 +4,6 @@ services:
     build: .
     ports:
       - 8080:8080
-    environment:
-      FLASK_APP: server.py
     networks:
       - tgresender
 networks:

@@ -22,7 +22,9 @@ export default new Router({
       path: "/dashboard",
       name: "Dashboard",
       component: () =>
-        import(/* webpackChunkName: "about" */ "../components/Dashboard.vue"),
+        import(
+          /* webpackChunkName: "dashboard" */ "@/components/Dashboard.vue"
+        ),
     },
   ],
 });

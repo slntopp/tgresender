@@ -14,6 +14,15 @@ tg_app = {
 tg_app["app"].connect()
 
 
+@app.route('/init_client', methods=['POST'])
+def handle_init_client():
+    form = request.form
+    api_id, api_hash = form.get(
+        'api_id', ''), form.get('api_hash', '')
+    conf.set_api(api_id, api_hash)
+    return '', 200
+
+
 @app.route('/send_code', methods=['POST'])
 def handle_send_code():
     tg_app["phone_number"] = request.form.get('phone_number', False)

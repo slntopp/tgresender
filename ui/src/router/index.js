@@ -8,21 +8,21 @@ export default new Router({
   routes: [
     {
       path: "/",
-      redirect: "/login"
+      redirect: "/login",
     },
     {
       path: "/login",
       name: "Login",
       component: Login,
       meta: {
-        guest: true
-      }
+        guest: true,
+      },
     },
     {
-      path: "/",
+      path: "/dashboard",
       name: "Dashboard",
       component: () =>
-        import(/* webpackChunkName: "about" */ "../components/Dashboard.vue")
-    }
-  ]
+        import(/* webpackChunkName: "about" */ "../components/Dashboard.vue"),
+    },
+  ],
 });

@@ -34,28 +34,30 @@ export default {
   data() {
     return {
       password: "",
-      validating: false
+      validating: false,
     };
   },
   methods: {
     submit() {
       let vm = this;
+      vm.$store.commit("validate_password", vm.password);
+      vm.$router.push({ path: "/dashboard" });
       vm.validating = true;
       axios({
-        url: "localhost:8080/login/",
+        url: "/login/",
         method: "post",
         params: {
-          admin_token: vm.password
-        }
+          passwd: vm.password,
+        },
       })
-        .then(res => {
+        .then((res) => {
           if (res.data.result) {
             vm.$store.commit("validate_password", vm.password);
-            vm.$router.push({ path: "/panel" });
+            vm.$router.push({ path: "/dashboard" });
           } else {
             vm.$notification.error({
               message: "Password wan't validated",
-              description: "Check your password and try again."
+              description: "Check your password and try again.",
             });
           }
         })
@@ -63,8 +65,8 @@ export default {
         .then(() => {
           vm.validating = false;
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

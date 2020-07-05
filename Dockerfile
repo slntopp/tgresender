@@ -1,9 +1,9 @@
 FROM node as build-stage
 WORKDIR /ui/
-ADD bot/ui .
+ADD ui .
 
 RUN npm install
-RUN npm run buld
+RUN npm run build
 
 FROM python:3.7.3 as deploy-stage
 

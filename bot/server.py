@@ -103,3 +103,15 @@ def handle_login():
     return jsonify({
         "result": open('/app/bot/scripts/token.txt').read() == request.args.get('passwd', ''),
     })
+
+
+@app.route('/get_users/', methods=['GET'])
+def handle_get_users():
+    global tg_app
+    chats = []
+    for d in tg_app["app"].iter_dialogs():
+        chats.append({
+            "title": d.chat.first_name or d.chat.title or 'NO TITLE',
+            "id": d.chat.username or d.chat.id or 'NOTHING'
+        })
+    return jsonify(chats)

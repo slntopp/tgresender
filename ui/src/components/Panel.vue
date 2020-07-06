@@ -31,10 +31,10 @@
             />
           </a-col>
           <a-col :span="7">
-            <APIConf
+            <ResenderConf
               :conf="resender_conf"
               form_title="Configure Resender"
-              :disabled="api_conf.unset || user_conf.unset"
+              :disabled="false && (api_conf.unset || user_conf.unset)"
               @updated="
                 (conf) => {
                   resender_conf = conf;
@@ -51,26 +51,29 @@
 <script>
 import APIConf from "@/components/conf/APIConf";
 import UserConf from "@/components/conf/UserConf";
+import ResenderConf from "@/components/conf/ResenderConf";
 
 export default {
   name: "Panel",
   components: {
     APIConf,
     UserConf,
+    ResenderConf
   },
   data() {
     return {
       api_conf: {
-        unset: true,
+        unset: true
       },
       user_conf: {
-        unset: true,
+        unset: true
       },
       resender_conf: {
         unset: true,
-      },
+        data: []
+      }
     };
-  },
+  }
 };
 </script>
 

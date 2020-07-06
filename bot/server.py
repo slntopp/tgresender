@@ -90,7 +90,7 @@ def handle_enter_pass():
 def get_state():
     return 'Running...'
 
-# Dashboard section
+# Panel section
 
 
 @app.route('/', methods=['GET'])

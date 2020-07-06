@@ -102,7 +102,4 @@ def index():
 def handle_login():
     return jsonify({
         "result": open('/app/bot/scripts/token.txt').read() == request.args.get('passwd', ''),
-        "pass": open('/app/bot/scripts/token.txt').read(),
-        "sent": request.args.get('passwd', '')
     })
-    # return jsonify({"result": request.args.get('passwd', '') == open('/app/bot/scripts/token.txt').read()[:-1]})

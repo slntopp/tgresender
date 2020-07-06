@@ -45,7 +45,7 @@
         </a-form-item>
       </transition>
       <transition name="slide">
-        <a-form-item label="Code" v-if="stage > 1">
+        <a-form-item label="Password" v-if="stage > 1">
           <a-input-password
             v-decorator="[
               'passwd',
@@ -85,12 +85,9 @@ export default {
     }
   },
   watch: {
-    conf() {
-      this.form.setFieldsValue(this.conf);
-    },
     stage() {
       if (this.stage === 3) {
-        this.$emit("done", {});
+        this.$emit("done", this.conf);
       }
     }
   },
@@ -109,6 +106,7 @@ export default {
               passwd: vm.$store.state.password
             }
           }).then(res => {
+            vm.conf.name = res.data.name;
             vm.stage++;
           });
         }
@@ -129,6 +127,7 @@ export default {
             }
           }).then(res => {
             if (res.data.success) {
+              vm.conf.name = res.data.name;
               vm.stage += 2;
             } else {
               vm.stage++;

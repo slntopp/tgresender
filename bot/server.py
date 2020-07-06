@@ -6,7 +6,7 @@ import os
 app = Flask(__name__, template_folder='/app/public',
             static_folder='/app/public/static')
 
-conf = {}
+conf = conf_gateway.load()
 tg_app = {}
 
 
@@ -31,13 +31,8 @@ def handle_init_client():
 
 @app.route('/get_conf', methods=['GET'])
 def get_conf():
+    global conf
     try:
-        conf = conf_gateway.load()
-        api_id, api_hash = form.get(
-            'api_id', False), form.get('api_hash', False)
-        if api_id and api_hash:
-            tg_app["app"] = gen_client(api_id, api_hash)
-            tg_app["app"].connect()
         return jsonify(conf)
     except:
         return jsonify({})
@@ -73,7 +68,7 @@ def handle_enter_code():
         })
     return jsonify({
         "success": True,
-        "name": tg_app["user"].first_name if not tg_app["user"].is_bot else tg_app["user"].username
+        "name": "%s %s" % (tg_app["user"].first_name, tg_app["user"].last_name) if not tg_app["user"].is_bot else tg_app["user"].username
     })
 
 
@@ -87,7 +82,7 @@ def handle_enter_pass():
     tg_app["user"] = tg_app["app"].check_password(passwd)
     return jsonify({
         "success": True,
-        "name": tg_app["user"].first_name
+        "name": "%s %s" % (tg_app["user"].first_name, tg_app["user"].last_name)
     })
 
 

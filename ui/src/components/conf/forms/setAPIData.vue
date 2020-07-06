@@ -3,6 +3,7 @@
     :visible="visible"
     :title="form_title"
     okText="Submit"
+    :ok-button-props="{ props: { loading: loading } }"
     @cancel="
       () => {
         $emit('cancel');
@@ -48,19 +49,26 @@ export default {
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: "configure_form" });
   },
-  watch: {
-    conf() {
-      this.form.setFieldsValue(this.conf);
-    }
+  data() {
+    return {
+      loading: false
+    };
   },
   mounted() {
-    this.form.setFieldsValue(this.conf);
+    this.checkConf();
   },
   methods: {
+    checkConf() {
+      this.form.setFieldsValue(this.conf);
+      if (this.conf.api_id && this.conf.api_hash) {
+        this.$emit("done", this.conf);
+      }
+    },
     submit() {
       let vm = this;
       vm.form.validateFields((err, values) => {
         if (!err) {
+          vm.loading = true;
           let apiClientData = new FormData();
           for (let [k, v] of Object.entries(values)) {
             apiClientData.set(k, v);
@@ -73,10 +81,16 @@ export default {
             params: {
               passwd: vm.$store.state.password
             }
-          }).then(res => {
-            vm.$emit("done", values);
-            vm.$message.success("API conf is all set");
-          });
+          })
+            .then(res => {
+              console.log("init_client", res);
+              vm.$emit("done", values);
+              vm.$message.success("API conf is all set");
+            })
+            .catch(() => {})
+            .then(() => {
+              vm.loading = false;
+            });
         }
       });
     }

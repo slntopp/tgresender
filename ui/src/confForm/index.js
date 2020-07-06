@@ -20,8 +20,10 @@ const configurationForm = {
       this.editing = true;
     },
     done(values) {
+      console.log("Done", values);
       this.conf = { unset: false, ...values };
       this.editing = false;
+      this.$emit("updated", this.conf);
     }
   },
   template: `

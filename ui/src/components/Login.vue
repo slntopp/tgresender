@@ -40,8 +40,6 @@ export default {
   methods: {
     submit() {
       let vm = this;
-      vm.$store.commit("validate_password", vm.password);
-      vm.$router.push({ path: "/dashboard" });
       vm.validating = true;
       axios({
         url: "/login/",
@@ -51,6 +49,7 @@ export default {
         },
       })
         .then((res) => {
+          console.log("Logged in", res.data);
           if (res.data.result) {
             vm.$store.commit("validate_password", vm.password);
             vm.$router.push({ path: "/dashboard" });

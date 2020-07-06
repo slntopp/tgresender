@@ -17,4 +17,6 @@ RUN pip install -r bot/requirements.txt
 
 COPY --from=build-stage /ui/dist /app/public
 
+RUN python bot/scripts/generate_onetime_pass.py
+
 ENTRYPOINT [ "gunicorn", "-b", "0.0.0.0:8080", "wsgi:app" ]

@@ -1,10 +1,10 @@
 version: "3.5"
 services:
   bot:
-    build: bot
-    volumes:
-      - type: volume
-        source: ./shared
-        target: /shared
-volumes:
-  shared:
+    build: .
+    ports:
+      - 8080:8080
+    networks:
+      - tgresender
+networks:
+  tgresender:

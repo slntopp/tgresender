@@ -2,7 +2,7 @@
 # You can ignore this script, it will be needed just to be able     #
 # to go through this process without CLI                            #
 #####################################################################
-import conf
+import bot.conf as conf
 from os import environ, listdir, path
 from getpass import getpass
 from pyrogram import Client, errors
@@ -25,7 +25,7 @@ def gen_client(api_id: str, api_hash: str) -> Client:
     )
 
 
-def send_code(phone):
+def send_code(app: Client, phone: str):
     print("Sending code...")
     try:
         r = app.send_code(phone)
@@ -36,7 +36,7 @@ def send_code(phone):
     return phone_code_hash
 
 
-def enter_code(phone, phone_code_hash, code):
+def enter_code(app: Client, phone: str, phone_code_hash: str, code: str):
     try:
         user = app.sign_in(phone, phone_code_hash, code)
         return user
@@ -47,7 +47,7 @@ def enter_code(phone, phone_code_hash, code):
 if __name__ == '__main__':
     conf = conf.load()
     api_id, api_hash = conf['api_id'], conf['api_hash']
-    app = gen_client(api_id, api_hash)
+    app = gen_client(app, api_id, api_hash)
 
     print("Connecting to Telegram Servers...")
     try:
@@ -59,10 +59,10 @@ if __name__ == '__main__':
         exit(1)
 
     phone = input("Enter your phone number with country code: ")
-    phone_code_hash = send_code(phone)
+    phone_code_hash = send_code(app, phone)
 
     code = input("Enter the confirmation code: ")
-    r = enter_code(phone, phone_code_hash, code)
+    r = enter_code(app, phone, phone_code_hash, code)
     if r:
         user = r
     else:
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     if not user.is_bot:
         print('Welcome, {}'.format(user.first_name))
 
-    for i in range(5):
+    for i in range(3):
         print()
 
     print('Your session file stored at %s' %

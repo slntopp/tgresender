@@ -3,13 +3,24 @@ from sys import argv
 from os import path
 
 
+def set_api(api_id, api_hash):
+    conf = load()
+    conf['api_id'] = api_id
+    conf['api_hash'] = api_hash
+    yaml.dump(
+        {'tgresender': conf}, open('%s/conf.yml' %
+                                   path.dirname(path.abspath(__file__)), 'w')
+    )
+    return True
+
+
 def load() -> dict:
     """Loades config from bot/conf.yml
 
     Returns:
         dict: Configuration
     """
-    conf = yaml.load(open('%s/../conf.yml' %
+    conf = yaml.load(open('%s/conf.yml' %
                           path.dirname(path.abspath(__file__)), 'r'), Loader=yaml.SafeLoader)
     if not conf.get('tgresender', False):
         print('No Valid Config Provided')

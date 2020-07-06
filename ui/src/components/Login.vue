@@ -2,7 +2,7 @@
   <a-row type="flex" justify="center" align="middle" id="login">
     <a-col :span="12">
       <a-row type="flex" justify="start">
-        <h1>Login to TelegramResender Dashboard</h1>
+        <h1>Login to TelegramResender Panel</h1>
       </a-row>
       <a-row type="flex" justify="space-around" :gutter="5">
         <a-col :span="16">
@@ -52,7 +52,7 @@ export default {
           console.log("Logged in", res.data);
           if (res.data.result) {
             vm.$store.commit("validate_password", vm.password);
-            vm.$router.push({ path: "/dashboard" });
+            vm.$router.push({ path: "/panel" });
           } else {
             vm.$notification.error({
               message: "Password wan't validated",

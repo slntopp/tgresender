@@ -19,12 +19,10 @@ export default new Router({
       },
     },
     {
-      path: "/dashboard",
-      name: "Dashboard",
+      path: "/panel",
+      name: "Panel",
       component: () =>
-        import(
-          /* webpackChunkName: "dashboard" */ "@/components/Dashboard.vue"
-        ),
+        import(/* webpackChunkName: "panel" */ "@/components/Panel.vue"),
     },
   ],
 });

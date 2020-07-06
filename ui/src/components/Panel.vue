@@ -1,8 +1,8 @@
 <template>
-  <div id="dashboard">
+  <div id="panel">
     <a-layout>
       <a-layout-header>
-        <h2 style="color: white;">Telegram Resender Dashboard</h2>
+        <h2 style="color: white;">Telegram Resender Panel</h2>
       </a-layout-header>
       <a-layout-content>
         <a-row type="flex" justify="space-between" id="conf_container">
@@ -53,7 +53,7 @@ import APIConf from "@/components/conf/APIConf";
 import UserConf from "@/components/conf/UserConf";
 
 export default {
-  name: "Dashboard",
+  name: "Panel",
   components: {
     APIConf,
     UserConf,
@@ -75,7 +75,7 @@ export default {
 </script>
 
 <style>
-#dashboard {
+#panel {
   width: 100%;
   height: 100%;
 }

@@ -100,4 +100,9 @@ def index():
 
 @app.route('/login/', methods=['POST'])
 def handle_login():
-    return jsonify({"result": request.args.get('passwd', '') == open('/app/bot/scripts/token.txt').read()[:-1]})
+    return jsonify({
+        "result": open('/app/bot/scripts/token.txt').read() == request.args.get('passwd', ''),
+        "pass": open('/app/bot/scripts/token.txt').read(),
+        "sent": request.args.get('passwd', '')
+    })
+    # return jsonify({"result": request.args.get('passwd', '') == open('/app/bot/scripts/token.txt').read()[:-1]})

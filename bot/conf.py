@@ -14,6 +14,16 @@ def set_api(api_id, api_hash):
     return True
 
 
+def set_resender(rules: dict):
+    conf = load()
+    conf['rules'] = rules
+    yaml.dump(
+        {'tgresender': conf}, open('%s/conf.yml' %
+                                   path.dirname(path.abspath(__file__)), 'w')
+    )
+    return True
+
+
 def load() -> dict:
     """Loades config from bot/conf.yml
 

@@ -12,7 +12,7 @@ tg_app = {}
 
 @app.route('/init_client', methods=['POST'])
 def handle_init_client():
-    global conf
+    global conf_gateway
     global tg_app
 
     form = request.form
@@ -31,11 +31,19 @@ def handle_init_client():
 
 @app.route('/get_conf', methods=['GET'])
 def get_conf():
-    global conf
+    global conf_gateway
     try:
         return jsonify(conf)
     except:
         return jsonify({})
+
+
+@app.route('/set_resender', methods=['POST'])
+def set_resender():
+    global conf_gateway
+    return jsonify({
+        "result": conf_gateway.set_resender(request.json)
+    })
 
 
 @app.route('/send_code', methods=['POST'])

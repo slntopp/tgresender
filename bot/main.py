@@ -19,7 +19,7 @@ app = Client(
     "tgresender",
     api_id=api_id,
     api_hash=api_hash,
-    workdir='shared'
+    workdir='/shared'
 )
 
 resend_from = conf['resend'].keys()

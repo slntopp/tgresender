@@ -29,10 +29,12 @@ resend_from = conf['resend'].keys()
 def resend(client, message):
     global argv
     if "--verbose" in argv:
-        print(
-            "Got message from: {} - {}".format(message.chat.username or
+        msg = "Got message from: {} - {}".format(message.chat.username or
                                                message.chat.title, message.chat.username or message.chat.id)
-        )
+        print(msg)
+        l = open('/shared', 'a')
+        l.write(msg)
+        l.close()
     try:
         def forward_messages(chat_id, from_chat_id, message_ids, as_copy):
             client.forward_messages(

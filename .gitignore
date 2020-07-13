@@ -7,5 +7,6 @@ pyvenv.cfg
 *.session
 conf.yml
 .vscode/launch.json
+.vscode/sftp.json
 __pycache__
 node_modules

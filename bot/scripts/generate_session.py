@@ -47,7 +47,7 @@ def enter_code(app: Client, phone: str, phone_code_hash: str, code: str):
 if __name__ == '__main__':
     conf = conf.load()
     api_id, api_hash = conf['api_id'], conf['api_hash']
-    app = gen_client(app, api_id, api_hash)
+    app = gen_client(api_id, api_hash)
 
     print("Connecting to Telegram Servers...")
     try:
